@@ -9,23 +9,28 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.deccovers.todomvvm.R
-import com.deccovers.todomvvm.data.TodoEntry
+import com.deccovers.todomvvm.data.local.TodoEntry
 import com.deccovers.todomvvm.databinding.FragmentUpdateBinding
 import com.deccovers.todomvvm.ui.list.TodoListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UpdateFragment : Fragment() {
 
     private val todoListViewModel: TodoListViewModel by viewModels()
+
+    private var _binding: FragmentUpdateBinding? = null
+    private val binding get() = _binding!!
+    private val args by navArgs<UpdateFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = FragmentUpdateBinding.inflate(inflater)
-
-        val args = UpdateFragmentArgs.fromBundle(requireArguments())
+        _binding = FragmentUpdateBinding.inflate(inflater, container, false)
 
         binding.apply {
             etUpdateTitle.setText(args.todoEntry.title)
@@ -53,5 +58,10 @@ class UpdateFragment : Fragment() {
             }
         }
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

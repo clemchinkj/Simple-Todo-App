@@ -1,10 +1,13 @@
 package com.deccovers.todomvvm.util
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
+@SuppressLint("SetTextI18n")
 @BindingAdapter("setPriority")
 fun setPriority(view: TextView, priority: Int) {
     when(priority) {
@@ -25,5 +28,7 @@ fun setPriority(view: TextView, priority: Int) {
 
 @BindingAdapter("setTimestamp")
 fun setTimestamp(view: TextView, timestamp: Long) {
-    view.text = DateFormat.getInstance().format(timestamp)
+    val date = Date(timestamp)
+    val sdfDate = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
+    view.text = sdfDate.format(date)
 }

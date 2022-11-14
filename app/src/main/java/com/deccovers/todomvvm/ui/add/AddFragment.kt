@@ -11,22 +11,27 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.deccovers.todomvvm.R
-import com.deccovers.todomvvm.data.TodoEntry
+import com.deccovers.todomvvm.data.local.TodoEntry
 import com.deccovers.todomvvm.databinding.FragmentAddBinding
 import com.deccovers.todomvvm.ui.list.TodoListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddFragment : Fragment() {
 
     private val todoListViewModel: TodoListViewModel by viewModels()
+
+    private var _binding: FragmentAddBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentAddBinding.inflate(inflater)
+        _binding = FragmentAddBinding.inflate(inflater, container, false)
 
         val myAdapter = ArrayAdapter (
-            requireActivity(),
+            requireContext(),
             android.R.layout.simple_spinner_dropdown_item,
             resources.getStringArray(R.array.priorities)
         )
@@ -55,6 +60,11 @@ class AddFragment : Fragment() {
             }
         }
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -1,25 +1,21 @@
 package com.deccovers.todomvvm.ui.list
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.deccovers.todomvvm.data.TodoDatabase
-import com.deccovers.todomvvm.data.TodoEntry
+import com.deccovers.todomvvm.data.local.TodoEntry
 import com.deccovers.todomvvm.data.TodoRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TodoListViewModel(application: Application): AndroidViewModel(application) {
-    private val todoDao = TodoDatabase.getDatabase(application).todoDao
+@HiltViewModel
+class TodoListViewModel @Inject constructor(
     private val repository: TodoRepository
+): ViewModel() {
 
-    val getAllTodos: Flow<List<TodoEntry>>
-
-    init {
-        repository = TodoRepository(todoDao)
-        getAllTodos = repository.getAllTodos()
-    }
+    val getAllTodos: Flow<List<TodoEntry>> = repository.getAllTodos()
 
     fun insertTodo(todoEntry: TodoEntry) {
         viewModelScope.launch(Dispatchers.IO) {

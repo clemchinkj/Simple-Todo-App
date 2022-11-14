@@ -1,4 +1,4 @@
-package com.deccovers.todomvvm.data
+package com.deccovers.todomvvm.data.local
 
 import androidx.room.Dao
 import androidx.room.Delete

@@ -13,19 +13,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.deccovers.todomvvm.R
 import com.deccovers.todomvvm.databinding.FragmentListBinding
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class ListFragment : Fragment() {
 
     private val todoListViewModel: TodoListViewModel by viewModels()
     private lateinit var todoListAdapter: TodoListAdapter
+
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +38,8 @@ class ListFragment : Fragment() {
     ): View {
         super.onCreate(savedInstanceState)
 
-        val binding = FragmentListBinding.inflate(inflater)
+        _binding = FragmentListBinding.inflate(inflater, container, false)
+
         binding.lifecycleOwner = this
         binding.viewModel = todoListViewModel
 
@@ -42,13 +48,15 @@ class ListFragment : Fragment() {
         })
 
         viewLifecycleOwner.lifecycleScope.launch {
-            todoListViewModel.getAllTodos.collect {
-                todoListAdapter.submitList(it)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                todoListViewModel.getAllTodos.collect {
+                    todoListAdapter.submitList(it)
+                }
             }
         }
 
         binding.apply {
-            binding.rvTodoList.adapter = todoListAdapter
+            rvTodoList.adapter = todoListAdapter
 
             fabTodoList.setOnClickListener {
                 findNavController().navigate(R.id.action_listFragment_to_addFragment)
@@ -92,6 +100,8 @@ class ListFragment : Fragment() {
                 searchView.setOnQueryTextFocusChangeListener { view, hasFocus ->
                     if (hasFocus) {
                         showInputMethod(view.findFocus())
+                    } else {
+                        searchView.setQuery("", false)
                     }
                 }
 
@@ -106,7 +116,6 @@ class ListFragment : Fragment() {
                         }
                         return true
                     }
-
                 })
             }
 
@@ -164,4 +173,8 @@ class ListFragment : Fragment() {
             }.create().show()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

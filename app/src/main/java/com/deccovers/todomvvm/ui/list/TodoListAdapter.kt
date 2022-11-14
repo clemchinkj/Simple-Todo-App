@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.deccovers.todomvvm.data.TodoEntry
+import com.deccovers.todomvvm.data.local.TodoEntry
 import com.deccovers.todomvvm.databinding.TodoRowLayoutBinding
 
 class TodoListAdapter(private val clickListener: TodoClickListener): ListAdapter<TodoEntry, TodoListAdapter.ViewHolder>(TodoDiffCallback) {
@@ -29,7 +29,9 @@ class TodoListAdapter(private val clickListener: TodoClickListener): ListAdapter
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current, clickListener)
+        if (current != null) {
+            holder.bind(current, clickListener)
+        }
     }
 }
 

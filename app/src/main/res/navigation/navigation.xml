@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.deccovers.todomvvm.ui.list.ListFragment"
-        android:label="List"
+        android:label="Todo List"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_listFragment_to_updateFragment"
@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/updateFragment"
         android:name="com.deccovers.todomvvm.ui.update.UpdateFragment"
-        android:label="Update"
+        android:label="Update Todo"
         tools:layout="@layout/fragment_update" >
         <action
             android:id="@+id/action_updateFragment_to_listFragment"
@@ -40,13 +40,13 @@
             app:popUpToInclusive="true"/>
         <argument
             android:name="todoEntry"
-            app:argType="com.deccovers.todomvvm.data.TodoEntry"/>
+            app:argType="com.deccovers.todomvvm.data.local.TodoEntry"/>
     </fragment>
 
     <fragment
         android:id="@+id/addFragment"
         android:name="com.deccovers.todomvvm.ui.add.AddFragment"
-        android:label="Add"
+        android:label="Add Todo"
         tools:layout="@layout/fragment_add" >
         <action
             android:id="@+id/action_addFragment_to_listFragment"

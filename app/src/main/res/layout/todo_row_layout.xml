@@ -7,7 +7,7 @@
     <data>
         <variable
             name="todoEntry"
-            type="com.deccovers.todomvvm.data.TodoEntry" />
+            type="com.deccovers.todomvvm.data.local.TodoEntry" />
         <variable
             name="clickListener"
             type="com.deccovers.todomvvm.ui.list.TodoClickListener" />

@@ -1,8 +1,11 @@
 package com.deccovers.todomvvm.data
 
+import com.deccovers.todomvvm.data.local.TodoDao
+import com.deccovers.todomvvm.data.local.TodoEntry
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class TodoRepository(private val todoDao: TodoDao) {
+class TodoRepository @Inject constructor(private val todoDao: TodoDao) {
     suspend fun insertTodo(todoEntry: TodoEntry) = todoDao.insertTodo(todoEntry)
 
     suspend fun deleteTodo(todoEntry: TodoEntry) = todoDao.deleteTodo(todoEntry)
