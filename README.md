@@ -1,7 +1,12 @@
 # TodoMVVM
 Simple todo-list Android app using MVVM architecture
 
-Designed to add, sort, and prioritize your todo items in an interactive list. 
+The app is designed to add, sort, and prioritize your todo items in an interactive list. 
+
+## Libraries
+- Room for persistent storage
+- Dagger-Hilt for dependency injection
+- Coroutines for asynchronous flows
 
 &ensp;
 
