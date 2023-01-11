@@ -13,22 +13,22 @@ The app is designed to add, sort, and prioritize your todo items in an interacti
 
 
 ## App Screenshots
-### Add Todo
+### Add todo
 
 <img src="app/src/main/res/drawable-v24/add_todo.jpg" height="400" /> 
 
 &ensp;
-### Todo List Main Page
+### Todo list main page
 
 <img src="app/src/main/res/drawable-v24/filled_todo_list.jpg" height="400" /> 
 
 &ensp;
-### Search View for Filtering
+### SearchView for filtering by key words
 
 <img src="app/src/main/res/drawable-v24/filter_todo.jpg" height="400" /> 
 
 &ensp;
-### Delete Todos by Swiping Action
+### Delete todos by swiping entries
 
 <img src="app/src/main/res/drawable-v24/deleted_todo.jpg" height="400" /> 
 
